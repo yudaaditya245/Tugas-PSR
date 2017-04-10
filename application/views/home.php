@@ -6,7 +6,6 @@
   </head>
   <body>
     Ini Home
-
     <a href="main/logout">Logout</a>
   </body>
 </html>

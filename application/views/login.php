@@ -11,7 +11,7 @@
     <div style="margin-top:10px;" class="container">
       <div class="row">
         <div class="col-md-6">
-          <form action="<?= base_url()?>main/login_val" method="post">
+          <form action="<?= base_url()?>main/loginVal" method="post">
             <div class="panel panel-primary">
               <div class="panel-heading">LOGIN FORM</div>
               <div class="panel-body">

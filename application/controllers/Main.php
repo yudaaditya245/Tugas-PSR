@@ -5,7 +5,7 @@
 
     public function __construct(){
       parent::__construct();
-      $this->load->model('m_main','m');
+      $this->load->model('modelMain','m');
     }
 
     public function index(){
@@ -38,13 +38,13 @@
       redirect('main');
     }
 
-    public function login_val(){
+    public function loginVal(){
       $this->load->library('form_validation');
       $this->form_validation->set_rules('email','Email','required|valid_email');
       $this->form_validation->set_rules('password','Password','required');
 
       if($this->form_validation->run()){
-        if($row = $this->m->login_val()){
+        if($row = $this->m->loginVal()){
           $data = array(
             'nama' => $row->nama,
             'email' => $row->email,
@@ -69,7 +69,7 @@
       }
     }
 
-    public function signup_val(){
+    public function signupVal(){
       $this->load->library('form_validation');
       $this->form_validation->set_rules('nama','Nama','required');
       $this->form_validation->set_rules('email','Email','required|valid_email|is_unique[tbl_user.email]');
@@ -78,7 +78,7 @@
       $this->form_validation->set_rules('level','Level','required');
 
       if($this->form_validation->run()){
-        if($row = $this->m->signup_val()){
+        if($row = $this->m->signupVal()){
           $data = array(
             'nama' => $row['nama'],
             'email' => $row['email'],

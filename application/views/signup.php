@@ -12,7 +12,7 @@
       <div class="row">
         <div class="col-md-6">
 
-          <form action="<?= base_url()?>main/signup_val" method="post">
+          <form action="<?= base_url()?>main/signupVal" method="post">
           <div class="panel panel-primary">
             <div class="panel-heading">REGISTER FORM</div>
             <div class="panel-body">

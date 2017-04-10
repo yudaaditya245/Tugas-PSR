@@ -35,8 +35,8 @@
 
                 if($this->session->level == 1){
                   $td = '<td>
-                            <a href="'.base_url().'home/e_jadwal/'.$r['id'].'" class="btn btn-success"><span class="glyphicon glyphicon-edit"></span></a>
-                            <a href="'.base_url().'home/h_jadwal/'.$r['id'].'" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                            <a href="'.base_url().'home/editJadwal/'.$r['id'].'" class="btn btn-success"><span class="glyphicon glyphicon-edit"></span></a>
+                            <a href="'.base_url().'home/hapusJadwal/'.$r['id'].'" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
                          </td>
                           ';
                 }else{

@@ -38,7 +38,7 @@
                 echo '<td>'.$row['tujuan'].'</td>';
                 echo '<td>'.$row['waktu'].'</td>';
                 echo '<td>'.$row['harga'].'</td>';
-                echo '<td><a class="btn btn-success" href="'.base_url().'home/t_jual/'.$row['kode'].'">Pilih</a></td>';
+                echo '<td><a class="btn btn-success" href="'.base_url().'home/transaksiJual/'.$row['kode'].'">Pilih</a></td>';
               echo '</tr>';
             }
 

@@ -5,10 +5,10 @@ if($this->session->is_login == 0){
 }else{
 
   if($this->session->level == 1){
-    $headline = '<a href="'.base_url().'home/t_jadwal" class="btn btn-info">Tambah Jadwal</a>';
+    $headline = '<a href="'.base_url().'home/tambahMaskapai" class="btn btn-info">Tambah Maskapai</a>';
     $th = '<th>Action</th>';
   }else{
-    $headline = 'Jadwal Keberangkatan';
+    $headline = 'Daftar Maskapai';
     $th = '';
   }
 
@@ -18,7 +18,7 @@ if($this->session->is_login == 0){
   <html>
     <head>
       <meta charset="utf-8">
-      <title>Jadwal Keberangkatan</title>
+      <title>Daftar Maskapai</title>
       <link rel="stylesheet" href="<?= base_url()?>assets/css/bootstrap.min.css">
       <link rel="stylesheet" href="<?= base_url()?>assets/css/bootstrap-theme.min.css">
     </head>
@@ -33,36 +33,27 @@ if($this->session->is_login == 0){
             <table class="table table-striped table-hover">
               <tr>
                 <th>Id</th>
-                <th>Kode</th>
                 <th>Maskapai</th>
-                <th>Asal</th>
-                <th>Tujuan</th>
-                <th>Waktu Keberangkatan</th>
-                <th>Harga</th>
                 <?= $th ?>
               </tr>
 
               <?php
 
               foreach ($row as $r) {
-                echo '<tr>';
 
-                  if($this->session->level == 1){
-                    $td = '<td>
-                              <a href="'.base_url().'home/e_jadwal/'.$r['id'].'" class="btn btn-success"><span class="glyphicon glyphicon-edit"></span></a>
-                              <a href="'.base_url().'home/h_jadwal/'.$r['id'].'" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
-                           </td>
-                            ';
-                  }else{
-                    $td = '';
-                  }
+                if($this->session->level == 1){
+                  $td = '<td>
+                            <a href="'.base_url().'home/editMaskapai/'. $r['id'] .'" class="btn btn-success"><span class="glyphicon glyphicon-edit"></span></a>
+                            <a href="'.base_url().'home/hapusMaskapai/'. $r['id'] .'" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                         </td>
+                          ';
+                }else{
+                  $td = '';
+                }
+
+                echo '<tr>';
                   echo '<td>'.$r['id'].'</td>';
-                  echo '<td>'.$r['kode'].'</td>';
                   echo '<td>'.$r['maskapai'].'</td>';
-                  echo '<td>'.$r['asal'].'</td>';
-                  echo '<td>'.$r['tujuan'].'</td>';
-                  echo '<td>'.$r['waktu'].'</td>';
-                  echo '<td>'.$r['harga'].'</td>';
                   echo $td;
                 echo '</tr>';
               }

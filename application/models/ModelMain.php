@@ -2,9 +2,9 @@
 
   defined('BASEPATH') OR exit('No direct script access allowed');
 
-  class M_main extends CI_Model{
+  class ModelMain extends CI_Model{
 
-    public function login_val(){
+    public function loginVal(){
       $email = $this->input->post('email');
       $password = md5($this->input->post('password'));
 
@@ -21,7 +21,7 @@
 
     }
 
-    public function signup_val(){
+    public function signupVal(){
       $nama = $this->input->post('nama');
       $email = $this->input->post('email');
       $password = md5($this->input->post('password'));
@@ -45,27 +45,27 @@
 
     }
 
-    public function select_user(){
+    public function selectUser(){
       $query = $this->db->get('tbl_user');
       return $query->result_array();
     }
 
-    public function select_maskapai(){
+    public function selectMaskapai(){
       $query = $this->db->get('tbl_maskapai');
       return $query->result_array();
     }
 
-    public function select_jadwal(){
+    public function selectJadwal(){
       $query = $this->db->get('tbl_jadwal');
       return $query->result_array();
     }
 
-    public function select_laporan(){
+    public function selectLaporan(){
       $query = $this->db->get('v_laporan');
       return $query->result_array();
     }
 
-    public function t_maskapai(){
+    public function tambahMaskapai(){
       $data = array(
         'id' => NULL,
         'maskapai' => $this->input->post('nama_mas')
@@ -79,7 +79,7 @@
 
     }
 
-    public function e_maskapai($id){
+    public function editMaskapai($id){
       $data = array(
         'maskapai' => $this->input->post('nama_mas')
       );
@@ -93,7 +93,7 @@
 
     }
 
-    public function h_maskapai($id){
+    public function hapusMaskapai($id){
       $this->db->where('id',$id);
 
       if($this->db->delete('tbl_maskapai')){
@@ -103,13 +103,13 @@
       }
     }
 
-    public function get_tbl($id,$tbl){
+    public function getTable($id,$tbl){
       $this->db->where('id',$id);
       $query = $this->db->get("$tbl");
       return $query;
     }
 
-    public function t_jadwal(){
+    public function tambahJadwal(){
       $data = array(
         'id' => NULL,
         'kode' => $this->input->post('kode_jadwal'),
@@ -127,7 +127,7 @@
       }
     }
 
-    public function e_jadwal($id){
+    public function editJadwal($id){
       $data = array(
         'kode' => $this->input->post('kode_jadwal'),
         'maskapai' => $this->input->post('maskapai'),
@@ -145,7 +145,7 @@
       }
     }
 
-    public function h_jadwal($id){
+    public function hapusJadwal($id){
       $this->db->where('id',$id);
       if($this->db->delete('tbl_jadwal')){
         return true;
@@ -154,7 +154,7 @@
       }
     }
 
-    public function h_user($id){
+    public function hapusUser($id){
       $this->db->where('id',$id);
       if($this->db->delete('tbl_user')){
         return true;
@@ -163,7 +163,7 @@
       }
     }
 
-    public function t_jual(){
+    public function transaksiJual(){
       $data = array(
         'id' => NULL,
         'kode' => $this->input->post('kode'),

@@ -11,7 +11,7 @@
     <div style="margin-top:10px;" class="container">
       <div class="row">
         <div class="col-md-6">
-          <form action="<?= base_url()?>home/t_val_jual/<?= $row['kode']?>" method="post">
+          <form action="<?= base_url()?>home/transaksiValJual/<?= $row['kode']?>" method="post">
             <div class="panel panel-primary">
               <div class="panel-heading">
                 <a style="margin-right:10px" class="btn btn-info" href="<?= base_url()?>home"><span class="glyphicon glyphicon-home"></span></a>
@@ -66,7 +66,7 @@
               </div>
               <div class="panel-footer">
                 <input class="btn btn-success" type="submit" name="submit" value="Oke">
-                <a class="btn btn-danger" href="<?= base_url()?>home/t_penjualan">Cancel</a>
+                <a class="btn btn-danger" href="<?= base_url()?>home/transaksiPenjualan">Cancel</a>
               </div>
             </div>
           </form>

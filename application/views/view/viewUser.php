@@ -1,14 +1,10 @@
 <?php
-
   if($this->session->is_login == 0){
     echo 'Login dulu bray <a href="'.base_url().'main/login">Login</a>';
-  }else if($this->session->level == 0){
+  }elseif($this->session->level == 0){
     echo 'Anda adalah Staff, tidak boleh masuk ke daerah admin, <a href="'.base_url().'home">Kembali ke Home</a>';
   }else {
-    ?>
-
-
-
+?>
 
 <!DOCTYPE html>
 <html>
@@ -22,7 +18,7 @@
     <div style="margin-top:10px;" class="container">
       <div class="panel panel-primary">
         <div class="panel-heading">
-          <a style="margin-right:10px;" class="btn btn-info" href="<?= base_url()?>/home"><span class="glyphicon glyphicon-home"></span></a>
+          <a style="margin-right:10px;" class="btn btn-info" href="<?= base_url()?>home"><span class="glyphicon glyphicon-home"></span></a>
           Users Page
         </div>
         <div class="panel-body">
@@ -56,7 +52,7 @@
                         </td>';
                 }else{
                   echo '<td>
-                          <a class="btn btn-danger" href="'.base_url().'home/h_user/'.$user['id'].'"><span class="glyphicon glyphicon-trash"></span></a>
+                          <a class="btn btn-danger" href="'.base_url().'home/hapusUser/'.$user['id'].'"><span class="glyphicon glyphicon-trash"></span></a>
                         </td>';
                 }
               echo '</tr>';

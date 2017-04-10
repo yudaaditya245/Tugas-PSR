@@ -19,8 +19,8 @@
               <li>  <a href="<?= base_url()?>home/user">Users</a></li>
               <li>  <a href="<?= base_url()?>home/maskapai">Maskapai</a></li>
               <li>  <a href="<?= base_url()?>home/jadwal">Jadwal Penerbangan</a></li>
-              <li>  <a href="<?= base_url()?>home/t_penjualan">Transaksi Penjualan</a></li>
-              <li>  <a href="<?= base_url()?>home/l_penjualan">Laporan Penjualan</a></li>
+              <li>  <a href="<?= base_url()?>home/transaksiPenjualan">Transaksi Penjualan</a></li>
+              <li>  <a href="<?= base_url()?>home/laporanPenjualan">Laporan Penjualan</a></li>
               </ul>
             </div>
             <div class="panel-footer">

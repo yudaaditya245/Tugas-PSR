@@ -6,7 +6,7 @@
 
     public function __construct(){
       parent::__construct();
-      $this->load->model('m_main','m');
+      $this->load->model('modelMain','m');
 
       if($this->session->is_login == 0){
         redirect('main');
@@ -29,18 +29,18 @@
     // ---------------- LINK HREF ----------------
 
     public function user(){
-      $data['user'] = $this->m->select_user();
-      $this->load->view('view/v_user',$data);
+      $data['user'] = $this->m->selectUser();
+      $this->load->view('view/viewUser',$data);
     }
 
     public function maskapai(){
-      $data['row'] = $this->m->select_maskapai();
-      $this->load->view('view/v_maskapai',$data);
+      $data['row'] = $this->m->selectMaskapai();
+      $this->load->view('view/viewMaskapai',$data);
     }
 
     public function jadwal(){
-      $data['row'] = $this->m->select_jadwal();
-      $this->load->view('view/v_jadwal',$data);
+      $data['row'] = $this->m->selectJadwal();
+      $this->load->view('view/viewJadwal',$data);
     }
 
     // LINK HREF END
@@ -48,55 +48,62 @@
 
     // ------------ CRUD MASKAPAI ----------------
 
-    public function t_maskapai(){
-      $this->load->view('tambah/t_maskapai');
+    public function tambahMaskapai(){
+      $this->load->view('tambah/tambahMaskapai');
     }
 
-    public function t_val_maskapai(){
+    public function tambahValMaskapai(){
       $this->load->library('form_validation');
       $this->form_validation->set_rules('nama_mas','Nama Maskapai','required|is_unique[tbl_maskapai.maskapai]');
 
       if($this->form_validation->run()){
-        $result = $this->m->t_maskapai();
+        $result = $this->m->tambahMaskapai();
         if($result){
           $this->maskapai();
         }else{
-          $this->load->view('tambah/t_maskapai');
+          $this->load->view('tambah/tambahMaskapai');
         }
       }else{
-        $this->load->view('tambah/t_maskapai');
+        $this->load->view('tambah/tambahMaskapai');
       }
     }
 
-    public function e_maskapai($id){
-      $query = $this->m->get_tbl($id,'tbl_maskapai');
+    public function editMaskapai($id){
+      $query = $this->m->getTable($id,'tbl_maskapai');
       $data['row'] = $query->row();
-      $this->load->view('edit/e_maskapai',$data);
+      $this->load->view('edit/editMaskapai',$data);
     }
 
-    public function e_val_maskapai($id){
+    public function editValMaskapai($id){
       $this->load->library('form_validation');
       $this->form_validation->set_rules('nama_mas','Nama Maskapai','required|is_unique[tbl_maskapai.maskapai]');
 
       if($this->form_validation->run()){
-        $result = $this->m->e_maskapai($id);
+        $result = $this->m->editMaskapai($id);
         if($result){
           $this->maskapai();
         }else{
-          $this->e_maskapai();
+          $this->editMaskapai();
         }
       }else{
-        $this->e_maskapai($id);
+        $this->editMaskapai($id);
       }
     }
 
+    public function hapusMaskapai($id){
 
-    public function h_maskapai($id){
-      $result = $this->m->h_maskapai($id);
-      if($result){
-        $this->maskapai();
-      }else{
-        echo 'Gagal';
+      if($this->session->is_login == 0){
+        echo 'Login dulu bray <a href="'.base_url().'main/login">Login</a>';
+      }elseif($this->session->level == 0){
+        echo 'Anda adalah Staff, tidak boleh masuk ke daerah admin, <a href="'.base_url().'home">Kembali ke Home</a>';
+      }else {
+
+        $result = $this->m->hapusMaskapai($id);
+        if($result){
+          $this->maskapai();
+        }else{
+          echo 'Gagal';
+        }
       }
     }
 
@@ -105,12 +112,12 @@
 
     // ---------------- CRUD JADWAL PENERBANGAN ----------------
 
-    public function t_jadwal(){
-      $data['row'] = $this->m->select_maskapai();
-      $this->load->view('tambah/t_jadwal',$data);
+    public function tambahJadwal(){
+      $data['row'] = $this->m->selectMaskapai();
+      $this->load->view('tambah/tambahJadwal',$data);
     }
 
-    public function t_val_jadwal(){
+    public function tambahValJadwal(){
       $this->load->library('form_validation');
       $this->form_validation->set_rules('kode_jadwal','Kode Jadwal','required|is_unique[tbl_jadwal.kode]');
       $this->form_validation->set_rules('maskapai','Maskapai','required');
@@ -120,25 +127,25 @@
       $this->form_validation->set_rules('harga','Harga','required|numeric');
 
       if($this->form_validation->run()){
-        $result = $this->m->t_jadwal();
+        $result = $this->m->tambahJadwal();
         if($result){
           $this->jadwal();
         }else{
           echo 'Gagal';
         }
       }else{
-        $this->t_jadwal();
+        $this->tambahJadwal();
       }
 
     }
 
-    public function e_jadwal($id){
-      $data['row'] = $this->m->get_tbl($id,'tbl_jadwal') -> row();
-      $data['row2'] = $this->m->select_maskapai();
-      $this->load->view('edit/e_jadwal',$data);
+    public function editJadwal($id){
+      $data['row'] = $this->m->getTable($id,'tbl_jadwal') -> row();
+      $data['row2'] = $this->m->selectMaskapai();
+      $this->load->view('edit/editJadwal',$data);
     }
 
-    public function e_val_jadwal($id){
+    public function editValJadwal($id){
       $this->load->library('form_validation');
       $this->form_validation->set_rules('kode_jadwal','Kode Jadwal','required');
       $this->form_validation->set_rules('maskapai','Maskapai','required');
@@ -148,23 +155,31 @@
       $this->form_validation->set_rules('harga','Harga','required|numeric');
 
       if($this->form_validation->run()){
-        $result = $this->m->e_jadwal($id);
+        $result = $this->m->editJadwal($id);
         if($result){
           $this->jadwal();
         }else{
           echo 'Gagal';
         }
       }else{
-        $this->e_jadwal($id);
+        $this->editJadwal($id);
       }
     }
 
-    public function h_jadwal($id){
-      $result = $this->m->h_jadwal($id);
-      if($result){
-        $this->jadwal();
-      }else{
-        echo 'gagal';
+    public function hapusJadwal($id){
+
+      if($this->session->is_login == 0){
+        echo 'Login dulu bray <a href="'.base_url().'main/login">Login</a>';
+      }elseif($this->session->level == 0){
+        echo 'Anda adalah Staff, tidak boleh masuk ke daerah admin, <a href="'.base_url().'home">Kembali ke Home</a>';
+      }else {
+
+        $result = $this->m->hapusJadwal($id);
+        if($result){
+          $this->jadwal();
+        }else{
+          echo 'gagal';
+        }
       }
     }
 
@@ -173,13 +188,21 @@
 
     // ---------------- CRUD USER ----------------
 
-    public function h_user($id){
-     $result = $this->m->h_user($id);
-     if($result){
-       $this->user();
-     }else{
-       echo 'Hapus gagal';
-     }
+    public function hapusUser($id){
+
+      if($this->session->is_login == 0){
+        echo 'Login dulu bray <a href="'.base_url().'main/login">Login</a>';
+      }elseif($this->session->level == 0){
+        echo 'Anda adalah Staff, tidak boleh masuk ke daerah admin, <a href="'.base_url().'home">Kembali ke Home</a>';
+      }else {
+
+        $result = $this->m->hapusUser($id);
+        if($result){
+         $this->user();
+        }else{
+         echo 'Hapus gagal';
+        }
+      }
     }
 
     // CRUD USER END
@@ -187,42 +210,38 @@
 
     // ---------------- TRANSAKSI PENJUALAN ----------------
 
-    public function t_penjualan(){
-      $data['jadwal'] = $this->m->select_jadwal();
-      $this->load->view('view/v_transaksi',$data);
+    public function transaksiPenjualan(){
+      $data['jadwal'] = $this->m->selectJadwal();
+      $this->load->view('view/viewTransaksi',$data);
     }
 
-    public function t_jual($kode){
+    public function transaksiJual($kode){
       $query = $this->m->get_jadwal($kode);
       $data['row'] = $query->row_array();
-      $this->load->view('view/v_cart',$data);
+      $this->load->view('view/viewCart',$data);
     }
 
-    public function t_val_jual($kode){
+    public function transaksiValJual($kode){
       $this->load->library('form_validation');
       $this->form_validation->set_rules('nama',"Nama",'required');
       $this->form_validation->set_rules('no_id',"No Identitas",'required|numeric');
       $this->form_validation->set_rules('no_telp',"No Telp",'required|numeric');
 
       if($this->form_validation->run()){
-        if($this->m->t_jual()){
-          redirect('home/l_penjualan');
+        if($this->m->transaksiJual()){
+          redirect('home/laporanPenjualan');
         }else{
           echo 'Pembeliaan Gagal';
         }
       }else{
-        $this->t_jual($kode);
+        $this->transaksiJual($kode);
       }
     }
 
-    public function l_penjualan(){
-      $data['laporan'] = $this->m->select_laporan();
-      $this->load->view('view/v_laporan',$data);
+    public function laporanPenjualan(){
+      $data['laporan'] = $this->m->selectLaporan();
+      $this->load->view('view/viewLaporan',$data);
     }
 
     // TRANSAKSI PENJUALAN END
-
-
   }
-
- ?>
